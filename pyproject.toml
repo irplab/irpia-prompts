@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "irpia-prompt"
+version = "0.1.0"
+description = "Irpia suggestion microservice using LLM prompts"
+authors = ["Joachim Dornbusch <joadorn@gmail.com>"]
+readme = "README.md"
+packages = [{include = "irpia_prompt"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.101.0"
+pydantic-settings = "^2.0.2"
+httpx = "^0.24.1"
+
+
+[tool.poetry.group.development.dependencies]
+black = {extras = ["d"], version = "^23.7.0"}
+pylint = "^2.17.5"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+pytest = "^7.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
