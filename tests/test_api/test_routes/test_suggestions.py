@@ -1,7 +1,6 @@
 """
 Test the suggestions routes
 """
-import re
 
 from fastapi.testclient import TestClient
 
@@ -19,5 +18,6 @@ def test_create_suggestion():
         "description": "There goes my hero"
     })
     assert response.status_code == 200
-    assert "uri" in response.json()
-    assert re.match('.+/suggest/keywords/thread/[0-9]+', response.json()["uri"])
+    assert "keywords" in response.json()
+    assert len(response.json()["keywords"]) == 2
+    assert "foo" in response.json()["keywords"]
