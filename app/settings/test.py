@@ -14,8 +14,6 @@ class TestAppSettings(AppSettings):
     """
     debug: bool = True
 
-    title: str = "Test FastAPI example application"
-
     logging_level: int = logging.DEBUG
 
-    model_config = SettingsConfigDict(env_file='.TEST.env', extra='ignore')
+    model_config = SettingsConfigDict(env_file='.test.env', extra='ignore')

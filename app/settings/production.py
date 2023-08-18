@@ -12,6 +12,4 @@ class ProdAppSettings(AppSettings):
     """
     debug: bool = False
 
-    title: str = "FastAPI example application"
-
     logging_level: int = logging.INFO

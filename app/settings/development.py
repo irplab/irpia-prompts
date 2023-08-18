@@ -12,6 +12,4 @@ class DevAppSettings(AppSettings):
     """
     debug: bool = True
 
-    title: str = "Dev FastAPI example application"
-
     logging_level: int = logging.DEBUG
