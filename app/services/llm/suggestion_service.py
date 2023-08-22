@@ -22,6 +22,8 @@ class SuggestionService:
         :param metadata:
         :return:
         """
+        if f"{metadata.title} {metadata.description}".isspace():
+            return Keywords(keywords=[])
         prompt = self.prompt_builder.build(metadata)
 
         return await self.engine.suggest(prompt)
