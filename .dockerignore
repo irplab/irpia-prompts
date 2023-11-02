@@ -1,0 +1,22 @@
+.env
+.env.example
+.test.env
+# IDE
+.idea
+# virtualenv
+venv
+# pytest cache
+.pytest_cache
+# offload
+offload
+# tests
+tests
+
+.pylintrc
+pyproject.toml
+poetry.lock
+
+# only prod-requirements.txt
+requirements.txt
+
+GPT-Dockerfile
