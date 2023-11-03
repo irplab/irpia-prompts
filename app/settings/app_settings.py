@@ -39,7 +39,8 @@ class AppSettings(BaseSettings):
     vigogne_repetition_penalty: float = float(1.0)
     vigogne_max_new_tokens: int = 512
     # vigogne_model_name_or_path: str = "bofenghuang/vigogne-2-70b-chat"
-    vigogne_model_name_or_path: str = "bofenghuang/vigogne-2-7b-chat"
+    # vigogne_model_name_or_path: str = "bofenghuang/vigogne-2-7b-chat"
+    vigogne_model_name_or_path: str = "bofenghuang/vigogne-2-7b-instruct"
 
     # model_config = SettingsConfigDict(env_file='.env', extra='ignore')
     model_config = SettingsConfigDict(env_file='.llm.chat.env', extra='ignore')
