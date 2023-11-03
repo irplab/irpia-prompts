@@ -1390,6 +1390,17 @@ setuptools = "*"
 wheel = "*"
 
 [[package]]
+name = "nvidia-ml-py"
+version = "12.535.133"
+description = "Python Bindings for the NVIDIA Management Library"
+optional = false
+python-versions = "*"
+files = [
+    {file = "nvidia-ml-py-12.535.133.tar.gz", hash = "sha256:b1559af0d57dd20955bf58d05afff7b166ddd44947eb3051c9905638799eb1dc"},
+    {file = "nvidia_ml_py-12.535.133-py3-none-any.whl", hash = "sha256:91d808d3f246d30bead2a0a2540b74b9e9fc584a9c3f1f55abfc2940c4e44fd2"},
+]
+
+[[package]]
 name = "nvidia-nccl-cu11"
 version = "2.14.3"
 description = "NVIDIA Collective Communication Library (NCCL) Runtime"
@@ -2808,4 +2819,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "9c59adfadf2c13534033e477dcef803f0e3dd86042f0e00786eda624b2e58b2e"
+content-hash = "b0ad53d98843358dc26997374f082ebe49b195ab550e77483468f19fd5efbcb2"
