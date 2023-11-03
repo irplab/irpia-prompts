@@ -6,7 +6,6 @@ COPY llm-requirements.txt /code/llm-requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /code/llm-requirements.txt
 
-COPY vigogne /code/vigogne
 COPY app /code/app
 COPY templates /code/templates
 

@@ -16,4 +16,4 @@ class VigogneInstructKwSuggestionServiceFactory(SuggestionServiceFactory):
 
     @classmethod
     def _prompt_builder(cls, settings: AppSettings) -> PromptBuilder:
-        return PromptBuilder("vigogne-keywords.jinja2", settings)
+        return PromptBuilder("vigogne-instruct-keywords.jinja2", settings)

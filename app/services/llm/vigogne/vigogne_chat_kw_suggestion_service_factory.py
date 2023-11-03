@@ -15,4 +15,4 @@ class VigogneChatKwSuggestionServiceFactory(SuggestionServiceFactory):
 
     @classmethod
     def _prompt_builder(cls, settings: AppSettings) -> PromptBuilder:
-        return PromptBuilder("vigogne-keywords.jinja2", settings)
+        return PromptBuilder("vigogne-chat-keywords.jinja2", settings)

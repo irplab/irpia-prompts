@@ -1,11 +1,11 @@
 import re
 
 import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig
 
 from app.models.keywords import Keywords
 from app.services.llm.suggestion_engine import SuggestionEngine
-from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig, TextStreamer
-from vigogne.preprocess import generate_instruct_prompt
+
 
 class VigogneInstructKwSuggestionEngine(SuggestionEngine):
     """
@@ -26,9 +26,10 @@ class VigogneInstructKwSuggestionEngine(SuggestionEngine):
         self.model = model = AutoModelForCausalLM.from_pretrained(model_name_or_path, torch_dtype=torch.float16,
                                                                   resume_download=True, offload_folder="offload").to(
             device)
+
     async def suggest(self, prompt: str):
-        prompt = generate_instruct_prompt(prompt)
-        print(f"Using device for tensor : {self.model.device}")
+        print(f"Using device : {self.model.device}")
+        print(f"Prompt:\n{prompt}")
         input_ids = self.tokenizer(prompt, return_tensors="pt")["input_ids"].to(self.model.device)
         input_length = input_ids.shape[1]
         generated_outputs = self.model.generate(
@@ -43,7 +44,7 @@ class VigogneInstructKwSuggestionEngine(SuggestionEngine):
         )
         generated_tokens = generated_outputs.sequences[0, input_length:]
         generated_text = self.tokenizer.decode(generated_tokens, skip_special_tokens=True)
-        print(generated_text)
+        print(f"Generated text:\n{generated_text}")
         keywords = [self._strip_dash(kw) for kw in generated_text.split("\n")]
         return Keywords(keywords=keywords)
 
