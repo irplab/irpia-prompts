@@ -45,8 +45,8 @@ class VigogneKwSuggestionEngine(SuggestionEngine, ABC):
         self.model = AutoModelForCausalLM.from_pretrained(model_name_or_path,
                                                           torch_dtype=torch.float16,
                                                           resume_download=True,
-                                                          offload_folder="offload",
-                                                          device_map=device)
+                                                          offload_folder="offload") \
+            .to(device)
 
     @abstractmethod
     async def suggest(self, prompt: str) -> Keywords:
