@@ -2,8 +2,10 @@ import re
 
 import openai
 
+from app.config import get_app_settings
 from app.models.keywords import Keywords
 from app.services.llm.suggestion_engine import SuggestionEngine
+from app.settings.app_settings import AppSettings
 
 
 class GptCompletionKwSuggestionEngine(SuggestionEngine):
@@ -12,8 +14,12 @@ class GptCompletionKwSuggestionEngine(SuggestionEngine):
     """
 
     async def suggest(self, prompt: str):
-        openai.api_key = self.settings.openai_api_key
-        model = self.settings.openai_kw_gpt_completion_model
+        settings: AppSettings = get_app_settings()
+        assert settings.openai_api_key is not None, "OpenAI API key not set"
+        openai.api_key = settings.openai_api_key
+        model = settings.openai_kw_gpt_completion_model \
+                or settings.model_name_or_path \
+                or self.engine_settings.get("model_name_or_path")
         response = openai.Completion.create(
             model=model,
             prompt=prompt,

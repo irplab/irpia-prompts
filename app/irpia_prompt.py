@@ -1,5 +1,6 @@
 import importlib
 from contextlib import asynccontextmanager
+from typing import AsyncGenerator
 
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
@@ -11,17 +12,28 @@ from app.settings.app_settings import AppSettings
 
 
 @asynccontextmanager
-async def initialize_model(app: FastAPI):
-    settings: AppSettings = get_app_settings()
-    app.model_service = _service_factory(settings)
+async def initialize_model(app: FastAPI) -> AsyncGenerator[SuggestionService, None]:
+    """
+    Initialize model service with appropiate engine
+
+    :param app: FastAPI app
+    :return: 
+    """
+    print("initializing service")
+    app.model_service = _service_factory()
     print("service initialized")
     yield
 
 
-def _service_factory(settings: AppSettings) -> SuggestionService:
-    factory_class = _factory_class(settings.kw_suggestion_service_factory_module,
-                                   settings.kw_suggestion_service_factory_class)
-    return factory_class.suggestion_service(settings)
+def _service_factory() -> SuggestionService:
+    settings: AppSettings = get_app_settings()
+    if settings.engine not in settings.engines:
+        raise ValueError(
+            f"Invalid model engine {settings.engine}, choose among {list(settings.engines.keys())}")
+    engine_settings = settings.engines.get(settings.engine)
+    factory_class = _factory_class(engine_settings.get('kw_suggestion_service_factory_module'),
+                                   engine_settings.get('kw_suggestion_service_factory_class'))
+    return factory_class.suggestion_service(engine_settings.get("defaults"))
 
 
 def _factory_class(engine_module: str, engine_class: str):
@@ -29,6 +41,9 @@ def _factory_class(engine_module: str, engine_class: str):
 
 
 class IrpiaPrompt(FastAPI):
+    """
+    FastAPI app to serve IRPIA prompt
+    """
 
     def __init__(self):
         super().__init__(lifespan=initialize_model)

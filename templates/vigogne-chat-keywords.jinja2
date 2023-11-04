@@ -1,4 +1,4 @@
-Propose une liste de {{ settings.kw_suggestion_min_nb }} à {{ settings.kw_suggestion_max_nb }} mots-clés synthétiques pour une ressource pédagogique ayant le titre et la description suivants :
+Propose une liste de {{ settings.get("kw_suggestion_min_nb") }} à {{ settings.get("kw_suggestion_max_nb") }}  mots-clés synthétiques pour une ressource pédagogique ayant le titre et la description suivants :
 Titre : {{ metadata.title }}
 Description : {{ metadata.description }}
 Mets un tiret au début de chaque proposition. Utilise au moins pour moitié des mots ne figurant pas dans le titre ni dans la description. Ne propose pas de mots-clés correspondant à des disciplines ou des niveaux officiels du système scolaire français. Ne mets pas la première lettre en majuscules sauf si l'usage le requiert.

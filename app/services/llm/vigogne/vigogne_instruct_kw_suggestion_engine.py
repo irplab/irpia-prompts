@@ -1,31 +1,15 @@
 import re
 
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig
+from transformers import GenerationConfig
 
 from app.models.keywords import Keywords
-from app.services.llm.suggestion_engine import SuggestionEngine
+from app.services.llm.vigogne.vigogne_kw_suggestion_engine import VigogneKwSuggestionEngine
 
 
-class VigogneInstructKwSuggestionEngine(SuggestionEngine):
+class VigogneInstructKwSuggestionEngine(VigogneKwSuggestionEngine):
     """
     Concrete Vigogne suggestion engine to use with instruct models
     """
-
-    def __init__(self, settings):
-        super().__init__(settings)
-        self.temperature = settings.vigogne_temperature
-        self.top_p = settings.vigogne_top_p
-        self.top_k = settings.vigogne_top_k
-        self.repetition_penalty = settings.vigogne_repetition_penalty
-        self.max_new_tokens = settings.vigogne_max_new_tokens
-        model_name_or_path = settings.vigogne_model_name_or_path
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        print(f"Using device for model : {device}")
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, padding_side="right", use_fast=False)
-        self.model = model = AutoModelForCausalLM.from_pretrained(model_name_or_path, torch_dtype=torch.float16,
-                                                                  resume_download=True, offload_folder="offload").to(
-            device)
 
     async def suggest(self, prompt: str):
         print(f"Using device : {self.model.device}")

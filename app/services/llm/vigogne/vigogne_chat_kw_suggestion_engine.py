@@ -1,37 +1,29 @@
 import re
 
-import torch
+from transformers import GenerationConfig, TextStreamer
 
 from app.models.keywords import Keywords
-from app.services.llm.suggestion_engine import SuggestionEngine
-from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig, TextStreamer
+from app.services.llm.vigogne.vigogne_kw_suggestion_engine import VigogneKwSuggestionEngine
 
 
-class VigogneChatKwSuggestionEngine(SuggestionEngine):
+class VigogneChatKwSuggestionEngine(VigogneKwSuggestionEngine):
     """
     Concrete Vigogne suggestion engine to use with non chat models
     """
 
-    def __init__(self, settings):
-        super().__init__(settings)
-        self.temperature = settings.vigogne_temperature
-        self.top_p = settings.vigogne_top_p
-        self.top_k = settings.vigogne_top_k
-        self.repetition_penalty = settings.vigogne_repetition_penalty
-        self.max_new_tokens = settings.vigogne_max_new_tokens
-        model_name_or_path = settings.vigogne_model_name_or_path
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        print(f"Using device for model : {device}")
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, padding_side="right", use_fast=False)
-        self.model = AutoModelForCausalLM.from_pretrained(model_name_or_path, torch_dtype=torch.float16,
-                                                          resume_download=True, offload_folder="offload").to(device)
-
-        self.streamer = TextStreamer(self.tokenizer, timeout=10.0, skip_prompt=True, skip_special_tokens=True)
+    def __init__(self, engine_settings: dict):
+        super().__init__(engine_settings)
+        self.streamer = TextStreamer(self.tokenizer,
+                                     timeout=10.0,
+                                     skip_prompt=True,
+                                     skip_special_tokens=True)
 
     async def suggest(self, prompt: str):
+        print(f"Using device : {self.model.device}")
+        print(f"Prompt:\n{prompt}")
         history = [{"role": "user", "content": prompt}]
-        print(f"Using device for tensor : {self.model.device}")
-        input_ids = self.tokenizer.apply_chat_template(history, return_tensors="pt").to(self.model.device)
+        input_ids = self.tokenizer.apply_chat_template(history, return_tensors="pt") \
+            .to(self.model.device)
         input_length = input_ids.shape[1]
         generated_outputs = self.model.generate(
             input_ids=input_ids,

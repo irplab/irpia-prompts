@@ -1,0 +1,40 @@
+vigogne-instruct:
+  kw_suggestion_service_factory_module: 'app.services.llm.vigogne.vigogne_instruct_kw_suggestion_service_factory'
+  kw_suggestion_service_factory_class: 'VigogneInstructKwSuggestionServiceFactory'
+  defaults:
+    model_name_or_path: 'bofenghuang/vigogne-2-7b-instruct'
+    kw_suggestion_min_nb: 1
+    kw_suggestion_max_nb: 10
+    temperature: 0.1
+    top_p: 1.0
+    top_k: 0
+    repetition_penalty: 1.0
+    max_new_tokens: 512
+vigogne-chat:
+  kw_suggestion_service_factory_module: 'app.services.llm.vigogne.vigogne_chat_kw_suggestion_service_factory'
+  kw_suggestion_service_factory_class: 'VigogneChatKwSuggestionServiceFactory'
+  defaults:
+    model_name: 'bofenghuang/vigogne-2-7b-chat'
+    defaults:
+      model_name_or_path: 'bofenghuang/vigogne-2-7b-instruct'
+      kw_suggestion_min_nb: 1
+      kw_suggestion_max_nb: 10
+      temperature: 0.1
+      top_p: 1.0
+      top_k: 0
+      repetition_penalty: 1.0
+      max_new_tokens: 512
+gpt-35-chat:
+  kw_suggestion_service_factory_module: 'app.services.llm.gpt.gpt_chat_kw_suggestion_service_factory'
+  kw_suggestion_service_factory_class: 'GptChatKwSuggestionServiceFactory'
+  defaults:
+    model_name_or_path: 'gpt-3.5-turbo'
+    temperature: 0
+    kw_suggestion_min_nb: 1
+    kw_suggestion_max_nb: 10
+gpt-35-completion:
+  kw_suggestion_service_factory_module: 'app.services.llm.gpt.gpt_completion_kw_suggestion_service_factory'
+  kw_suggestion_service_factory_class: 'GptCompletionKwSuggestionServiceFactory'
+  defaults:
+    kw_suggestion_min_nb: 1
+    kw_suggestion_max_nb: 10
