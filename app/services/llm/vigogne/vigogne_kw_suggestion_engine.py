@@ -46,7 +46,7 @@ class VigogneKwSuggestionEngine(SuggestionEngine, ABC):
                                                           torch_dtype=torch.float16,
                                                           resume_download=True,
                                                           offload_folder="offload",
-                                                          device=device)
+                                                          device_map=device)
 
     @abstractmethod
     async def suggest(self, prompt: str) -> Keywords:
