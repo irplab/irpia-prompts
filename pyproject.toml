@@ -40,7 +40,7 @@ torch = ">=2.0.0, !=2.0.1, !=2.1.0"
 sentencepiece = "^0.1.99"
 protobuf = "^4.24.4"
 accelerate = "^0.24.1"
-nvidia-ml-py = "^12.535.133"
+nvidia-ml-py = "<=11.495.46, >=11.450.129"
 
 [build-system]
 requires = ["poetry-core"]
