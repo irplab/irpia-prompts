@@ -14,16 +14,14 @@ vigogne-chat:
   kw_suggestion_service_factory_module: 'app.services.llm.vigogne.vigogne_chat_kw_suggestion_service_factory'
   kw_suggestion_service_factory_class: 'VigogneChatKwSuggestionServiceFactory'
   defaults:
-    model_name: 'bofenghuang/vigogne-2-7b-chat'
-    defaults:
-      model_name_or_path: 'bofenghuang/vigogne-2-7b-instruct'
-      kw_suggestion_min_nb: 1
-      kw_suggestion_max_nb: 10
-      temperature: 0.1
-      top_p: 1.0
-      top_k: 0
-      repetition_penalty: 1.0
-      max_new_tokens: 512
+    model_name_or_path: 'bofenghuang/vigogne-2-7b-instruct'
+    kw_suggestion_min_nb: 1
+    kw_suggestion_max_nb: 10
+    temperature: 0.1
+    top_p: 1.0
+    top_k: 0
+    repetition_penalty: 1.0
+    max_new_tokens: 512
 gpt-35-chat:
   kw_suggestion_service_factory_module: 'app.services.llm.gpt.gpt_chat_kw_suggestion_service_factory'
   kw_suggestion_service_factory_class: 'GptChatKwSuggestionServiceFactory'
