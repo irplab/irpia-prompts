@@ -102,12 +102,31 @@ Run the provided image with your OpenAI API key :
 docker run -d --name irpia-prompt-gpt -p 8000:8000 -e OPENAI_API_KEY=sk-************************************************* joadorn/irpia-prompt-gpt
 ```
 
+All parameters from .env file can be overriden with -e option. For example, to set temperature to 0.5 :
+
+```bash
+docker run -d --name irpia-prompt-gpt -p 8000:8000 -e OPENAI_API_KEY=sk-************************************************* -e TEMPERATURE=0.5 joadorn/irpia-prompt-gpt
+```
+
 #### Use with local LLM
 
 Run the provided image on a server powered by a GPU with NVIDIA drivers installed :
 
 ```bash
 docker run -d --gpus all --name irpia-prompt-llm -p 8000:8000 joadorn/irpia-prompt-llm
+```
+
+All parameters from .env file can be overriden with -e option. 
+Default engine is "vigogne-instruct". To use "vigogne-chat" engine, add `-e ENGINE=vigogne-chat` option :
+
+```bash
+docker run -d --gpus all --name irpia-prompt-llm -p 8000:8000 -e ENGINE=vigogne-chat joadorn/irpia-prompt-llm
+```
+
+Or even take `.vigogne.chat.env.example` from this repository as docker environment file :
+
+```bash
+docker run -d --gpus all --name irpia-prompt-llm -p 8000:8000 --env-file .vigogne.chat.env.example joadorn/irpia-prompt-llm
 ```
 
 ## Development
