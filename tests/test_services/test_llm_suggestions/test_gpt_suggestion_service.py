@@ -14,7 +14,9 @@ def fixture_gpt_chat_suggestion_service():
     Provide GPT chat suggestion service
     :return: GPT chat suggestion service
     """
-    return GptChatKwSuggestionServiceFactory.suggestion_service(settings=settings)
+    return GptChatKwSuggestionServiceFactory.suggestion_service(
+        engine_settings=settings.engines.get(settings.engine)
+    )
 
 
 @pytest.mark.asyncio

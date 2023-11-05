@@ -13,7 +13,8 @@ def fixture_prompt_builder():
     Provide the most basic prompt builder
     :return:
     """
-    return PromptBuilder(template="gpt-3.5-curie-ft-keywords.jinja2", settings=settings)
+    return PromptBuilder(template="gpt-3.5-curie-ft-keywords.jinja2",
+                         engine_settings=settings.engines.get(settings.engine))
 
 
 def test_create_basic_prompt(prompt_builder):
