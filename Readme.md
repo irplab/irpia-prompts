@@ -57,23 +57,6 @@ As this name may differ from one user to another, it is not set in YAML configur
 uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
-### With docker
-
-#### Use with remote GPT (OpenAI API)
-
-Run the provided image with your OpenAI API key :
-
-```bash
-docker run -d --name irpia-prompt-gpt -p 8000:8000 -e OPENAI_API_KEY=sk-************************************************* joadorn/irpia-prompt-gpt
-```
-
-#### Use with local LLM
-
-Run the provided image on a server powered by a GPU with NVIDIA drivers installed :
-
-```bash
-docker run -d --gpus all --name irpia-prompt-llm -p 8000:8000 joadorn/irpia-prompt-llm
-```
 
 #### Use with local LLM
 
@@ -109,6 +92,24 @@ All default parameters from `engines.yml`configuration file can be overriden in 
 uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
+### With docker
+
+#### Use with remote GPT (OpenAI API)
+
+Run the provided image with your OpenAI API key :
+
+```bash
+docker run -d --name irpia-prompt-gpt -p 8000:8000 -e OPENAI_API_KEY=sk-************************************************* joadorn/irpia-prompt-gpt
+```
+
+#### Use with local LLM
+
+Run the provided image on a server powered by a GPU with NVIDIA drivers installed :
+
+```bash
+docker run -d --gpus all --name irpia-prompt-llm -p 8000:8000 joadorn/irpia-prompt-llm
+```
+
 ## Development
 
 ### Use with remote GPT (OpenAI API)
@@ -122,7 +123,7 @@ poetry export --without=development,llm --with=gpt -f requirements.txt --output 
 Build image with this requirements :
 
 ```bash
- docker image build -t irpia-prompt-gpt:xx -f LLM-Dockerfile .
+ docker image build -t irpia-prompt-gpt:xx -f GPT-Dockerfile .
 ```
 
 ### Use with local LLM
