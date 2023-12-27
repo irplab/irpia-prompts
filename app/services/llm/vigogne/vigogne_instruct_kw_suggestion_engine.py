@@ -29,9 +29,9 @@ class VigogneInstructKwSuggestionEngine(VigogneKwSuggestionEngine):
         generated_tokens = generated_outputs.sequences[0, input_length:]
         generated_text = self.tokenizer.decode(generated_tokens, skip_special_tokens=True)
         print(f"Generated text:\n{generated_text}")
-        keywords = [self._strip_dash(kw) for kw in generated_text.split("\n")]
+        keywords = [self._strip_dash(kw.strip()) for kw in generated_text.split("\n") if kw.strip()]
         return Keywords(keywords=keywords)
 
     @classmethod
     def _strip_dash(cls, line):
-        return re.sub(r'^-\s+', '', line)
+        return re.sub(r'^-*\d*\.*\s+', '', line)
