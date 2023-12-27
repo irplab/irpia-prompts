@@ -25,9 +25,9 @@ class GptChatKwSuggestionEngine(SuggestionEngine):
             temperature=float(settings.temperature or self.engine_settings.get("temperature") or 0),
         )
         content: str = response.choices[0].message["content"]
-        keywords = [self._strip_dash(kw) for kw in content.split("\n")]
+        keywords = [self._strip_dash(kw.strip()) for kw in content.split("\n") if kw.strip()]
         return Keywords(keywords=keywords)
 
     @classmethod
     def _strip_dash(cls, line):
-        return re.sub(r'^-\s+', '', line)
+        return re.sub(r'^-*\d*\.*\s+', '', line)
