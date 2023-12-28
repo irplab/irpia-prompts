@@ -41,6 +41,8 @@ sentencepiece = "^0.1.99"
 protobuf = "^4.24.4"
 accelerate = "^0.24.1"
 nvidia-ml-py = "<=11.495.46, >=11.450.129"
+auto-gptq = "^0.6.0"
+optimum = "^1.16.1"
 
 [build-system]
 requires = ["poetry-core"]
