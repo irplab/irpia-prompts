@@ -60,5 +60,6 @@ class AppSettings(BaseSettings):
     repetition_penalty: float | None = None
     max_new_tokens: int | None = None
     model_name_or_path: str | None = None
+    model_revision: str | None = None
 
     model_config = SettingsConfigDict(env_file='.env', extra='ignore')

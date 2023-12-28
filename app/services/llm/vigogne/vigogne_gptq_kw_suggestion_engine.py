@@ -36,12 +36,15 @@ class VigogneGPTQKwSuggestionEngine(SuggestionEngine, ABC):
                                   or 0)
         model_name_or_path = settings.model_name_or_path \
                              or self.engine_settings.get("model_name_or_path")
+        model_revision = settings.model_revision \
+                         or self.engine_settings.get("model_revision")
         assert model_name_or_path, "No model name or path provided"
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         print(f"Using device for model : {device}")
         self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path,
                                                        use_fast=True)
         self.model = AutoModelForCausalLM.from_pretrained(model_name_or_path,
+                                                          revision=model_revision,
                                                           trust_remote_code=False,
                                                           resume_download=True,
                                                           offload_folder="offload") \

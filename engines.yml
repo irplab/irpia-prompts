@@ -14,7 +14,8 @@ vigogne-instruct-gptq:
   kw_suggestion_service_factory_module: 'app.services.llm.vigogne.vigogne_instruct_gptq_kw_suggestion_service_factory'
   kw_suggestion_service_factory_class: 'VigogneInstructGPTQKwSuggestionServiceFactory'
   defaults:
-    model_name_or_path: 'TheBloke/Vigogne-2-13B-Instruct-GPTQ:gptq-8bit-128g-actorder_True'
+    model_name_or_path: 'TheBloke/Vigogne-2-13B-Instruct-GPTQ'
+    model_revision: 'gptq-8bit-128g-actorder_True'
     kw_suggestion_min_nb: 1
     kw_suggestion_max_nb: 10
     temperature: 0.1
